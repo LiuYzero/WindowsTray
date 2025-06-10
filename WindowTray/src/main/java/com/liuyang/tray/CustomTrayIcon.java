@@ -5,6 +5,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * 自定义托盘图标类，继承自TrayIcon，实现了鼠标监听器以显示弹出菜单。
+ *
+ * @author liuyang
+ * @version 1.0
+ * @since 2025/06/10 23:34
+ */
 public class CustomTrayIcon extends TrayIcon {
     private JPopupMenu popupMenu;
     private final SystemTray systemTray;
