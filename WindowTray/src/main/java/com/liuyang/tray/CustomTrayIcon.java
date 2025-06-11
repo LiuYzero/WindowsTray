@@ -1,5 +1,8 @@
 package com.liuyang.tray;
 
+import com.liuyang.tray.rsshub.bilibili.BilibiliSubmissionService;
+import org.dom4j.DocumentException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -37,6 +40,11 @@ public class CustomTrayIcon extends TrayIcon {
         openItem.setFont(new Font("华文宋体",Font.PLAIN,20));
         openItem.addActionListener(e -> {
             // 这里可以添加打开应用程序的逻辑
+            try {
+                new BilibiliSubmissionService().getRssEntityByUrl();
+            } catch (DocumentException ex) {
+                throw new RuntimeException(ex);
+            }
             JOptionPane.showMessageDialog(null, "打开应用程序");
         });
 
