@@ -32,6 +32,7 @@ public class CustomTrayIcon extends TrayIcon {
             Image trayImage = Toolkit.getDefaultToolkit().getImage(CustomTrayIcon.class.getResource("/favicon-16x16.png"));
             CustomTrayIcon trayIcon = new CustomTrayIcon(trayImage, "My Tray");
             SystemTray.getSystemTray().add(trayIcon);
+            logger.info("tray start");
         } catch (Exception e) {
             logger.error("",e);
         }
