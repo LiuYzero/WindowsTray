@@ -17,14 +17,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * B站投稿信息解析服务
+ *
+ * @author liuyang
+ * @since 2025/06/12
+ */
+public class BiliSubmissionService {
+    private static final Logger logger = LoggerFactory.getLogger(BiliSubmissionService.class);
 
-public class BilibiliSubmissionService {
-    private static final Logger logger = LoggerFactory.getLogger(BilibiliSubmissionService.class);
-
-    public static void main(String[] args) throws DocumentException {
-        String tmp = "http://192.168.1.107:1200/bilibili/user/dynamic/2267573";
-        new BilibiliSubmissionService().getRssEntityByUrl(tmp);
-    }
+//    public static void main(String[] args) throws DocumentException {
+//        String tmp = "http://192.168.1.107:1200/bilibili/user/dynamic/2267573";
+//        new BilibiliSubmissionService().getRssEntityByUrl(tmp);
+//    }
 
     /**
      * 根据url获取rss实体类
