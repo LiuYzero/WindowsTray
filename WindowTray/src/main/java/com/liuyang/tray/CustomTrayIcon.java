@@ -39,12 +39,6 @@ public class CustomTrayIcon extends TrayIcon {
         JMenuItem openItem = new JMenuItem("打开",new ImageIcon(CustomTrayIcon.class.getResource("/favicon-16x16.png")));
         openItem.setFont(new Font("华文宋体",Font.PLAIN,20));
         openItem.addActionListener(e -> {
-            // 这里可以添加打开应用程序的逻辑
-            try {
-                new BilibiliSubmissionService().getRssEntityByUrl();
-            } catch (DocumentException ex) {
-                throw new RuntimeException(ex);
-            }
             JOptionPane.showMessageDialog(null, "打开应用程序");
         });
 
