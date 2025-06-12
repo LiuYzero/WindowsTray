@@ -42,7 +42,6 @@ public class BiliSubmissionService {
             rssChannelEntity = JSON.parseObject(rssJSON.toJSONString(), RSSChannelEntity.class);
         } catch (DocumentException e) {
             logger.error("", e);
-            throw new RuntimeException(e);
         }
 
         return rssChannelEntity;
@@ -134,9 +133,8 @@ public class BiliSubmissionService {
         ZonedDateTime zdt = ZonedDateTime.parse(dateStr, gmtFormatter);
 
         DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = zdt.format(targetFormatter);
 
-        return formattedDate;
+        return zdt.format(targetFormatter);
     }
 
 
