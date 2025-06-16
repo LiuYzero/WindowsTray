@@ -27,7 +27,7 @@ public class BiliDownloadVideoServices {
         try {
             process = processBuilder.start();
             BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
+                    new InputStreamReader(process.getInputStream(),"GBK"));
 
             String line;
             while ((line = reader.readLine()) != null) {
