@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 自定义托盘图标类，继承自TrayIcon，实现了鼠标监听器以显示弹出菜单。
@@ -53,8 +57,35 @@ public class CustomTrayIcon extends TrayIcon {
         JMenuItem whisperItem = new JMenuItem("Whisper",new ImageIcon(CustomTrayIcon.class.getResource("/whisper-16x16.png")));
         whisperItem.setFont(new Font("华文宋体",Font.PLAIN,20));
         whisperItem.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Whisper");
+//            ProcessBuilder processBuilder = new ProcessBuilder("powershell",
+//                    "-Command",
+//                    "cd D:/x/WhipserSchedulerProject; yt-dlp.exe "+ "https://www.bilibili.com/video/BV1DsMMz2ECD");
+//            processBuilder.redirectErrorStream(true);
+//            Process process = null;
+//            try {
+//                process = processBuilder.start();
+////                boolean finished = process.waitFor(600, TimeUnit.SECONDS);
+////                if (!finished) {
+////                    process.destroyForcibly();
+////                    logger.info("Command timed out");
+////                    return;
+////                }
+//                BufferedReader reader = new BufferedReader(
+//                        new InputStreamReader(process.getInputStream()));
+//
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                   logger.info("{}", line);
+//                }
+//
+//                System.out.println("Exit Code: " + process.exitValue());
+//            } catch (IOException ex) {
+//              logger.error("",ex);
+//            }
+
+
         });
+
 
         JMenuItem openItem = new JMenuItem("打开",new ImageIcon(CustomTrayIcon.class.getResource("/favicon-16x16.png")));
         openItem.setFont(new Font("华文宋体",Font.PLAIN,20));

@@ -26,10 +26,10 @@ import java.util.Locale;
 public class BiliSubmissionService {
     private static final Logger logger = LoggerFactory.getLogger(BiliSubmissionService.class);
 
-//    public static void main(String[] args) throws DocumentException {
-//        String tmp = "http://192.168.1.107:1200/bilibili/user/dynamic/2267573";
-//        new BilibiliSubmissionService().getRssEntityByUrl(tmp);
-//    }
+    public static void main(String[] args) throws DocumentException {
+        String tmp = "http://192.168.1.107:1200/bilibili/user/dynamic/517986781";
+        new BiliSubmissionService().getRssEntityByUrl(tmp);
+    }
 
     /**
      * 根据url获取rss实体类
