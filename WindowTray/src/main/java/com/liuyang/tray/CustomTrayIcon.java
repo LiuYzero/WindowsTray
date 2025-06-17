@@ -1,5 +1,6 @@
 package com.liuyang.tray;
 
+import com.liuyang.tray.rsshub.bilibili.BiliServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,32 +58,7 @@ public class CustomTrayIcon extends TrayIcon {
         JMenuItem whisperItem = new JMenuItem("Whisper",new ImageIcon(CustomTrayIcon.class.getResource("/whisper-16x16.png")));
         whisperItem.setFont(new Font("华文宋体",Font.PLAIN,20));
         whisperItem.addActionListener(e -> {
-//            ProcessBuilder processBuilder = new ProcessBuilder("powershell",
-//                    "-Command",
-//                    "cd D:/x/WhipserSchedulerProject; yt-dlp.exe "+ "https://www.bilibili.com/video/BV1DsMMz2ECD");
-//            processBuilder.redirectErrorStream(true);
-//            Process process = null;
-//            try {
-//                process = processBuilder.start();
-////                boolean finished = process.waitFor(600, TimeUnit.SECONDS);
-////                if (!finished) {
-////                    process.destroyForcibly();
-////                    logger.info("Command timed out");
-////                    return;
-////                }
-//                BufferedReader reader = new BufferedReader(
-//                        new InputStreamReader(process.getInputStream()));
-//
-//                String line;
-//                while ((line = reader.readLine()) != null) {
-//                   logger.info("{}", line);
-//                }
-//
-//                System.out.println("Exit Code: " + process.exitValue());
-//            } catch (IOException ex) {
-//              logger.error("",ex);
-//            }
-
+            new BiliServices().start();
 
         });
 
