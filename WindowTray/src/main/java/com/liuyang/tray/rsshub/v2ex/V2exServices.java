@@ -1,5 +1,6 @@
-package com.liuyang.tray.rsshub.bilibili;
+package com.liuyang.tray.rsshub.v2ex;
 
+import com.liuyang.tray.rsshub.bilibili.BiliSubmissionService;
 import com.liuyang.tray.rsshub.entity.RSSChannelEntity;
 import com.liuyang.tray.rsshub.entity.RSSItemEntity;
 import org.slf4j.Logger;
@@ -9,20 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * B站服务
+ * V2ex
  * @author liuyang
  * @since 2025/06/17
  */
-public class BiliServices {
-    private static final Logger logger = LoggerFactory.getLogger(BiliServices.class);
+public class V2exServices {
+    private static final Logger logger = LoggerFactory.getLogger(V2exServices.class);
 
     public static void main(String[] args) {
-        new BiliServices().start();
+        new V2exServices().start();
     }
 
     public  void start() {
-        // 2025年6月17日
-        // B站用户投稿解析失败，代码不做处理
         List<String> BiliUserSpaceUrls = Arrays.asList(
                 "https://rsshub.app/v2ex/topics/latest"
         );

@@ -29,6 +29,13 @@ public class CustomTrayIcon extends TrayIcon {
     private final TrayIcon trayIcon;
 
     public static void main(String[] args) {
+        System.setProperty("http.proxyHost", "192.168.1.175");
+        System.setProperty("http.proxyPort", "7897");
+
+        System.setProperty("https.proxyHost", "192.168.1.175");
+        System.setProperty("https.proxyPort", "7897");
+
+
         try {
             if (!SystemTray.isSupported()) {
                 logger.info("SystemTray is not supported");
