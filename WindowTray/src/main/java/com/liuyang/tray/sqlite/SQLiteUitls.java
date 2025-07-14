@@ -1,5 +1,8 @@
 package com.liuyang.tray.sqlite;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,32 +11,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * SQLite数据库示例
+ * SQLite数据库工具
  *
  * @author liuyang
  * @since 2025/06/25
  */
-public class SqliteDemo {
+public class SQLiteUitls {
+
+    public static final Logger logger = LoggerFactory.getLogger(SQLiteUitls.class);
+
 
     // 数据库文件路径 (如果不存在会自动创建)
     private static final String DB_URL = "jdbc:sqlite:machine-tray.db";
 
-    public static void main(String[] args) {
+    static {
         // 创建数据库连接
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
-            System.out.println("成功连接到SQLite数据库");
+            logger.info("init sqlite db");
 
             // 创建表
             createTables(conn);
 
-            // 插入数据
-            insertData(conn);
-
-            // 查询并显示数据
-            queryData(conn);
 
         } catch (SQLException e) {
-            System.err.println("数据库操作出错: " + e.getMessage());
+            logger.error("init db error: " + e.getMessage());
         }
     }
 
@@ -61,12 +62,54 @@ public class SqliteDemo {
             );
             """;
 
+        String createTranslateTableSQL = """
+               CREATE TABLE IF NOT EXISTS translate (
+                   id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   key TEXT,
+                   value TEXT,
+                   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+               );
+                """;
+
         try (Statement stmt = conn.createStatement()) {
             // 执行创建表的SQL语句
             stmt.execute(createUserTableSQL);
             stmt.execute(createProductTableSQL);
-            System.out.println("表创建成功");
+            stmt.execute(createTranslateTableSQL);
+            logger.info("create tables success");
         }
+    }
+
+
+    /**
+     * 插入翻译数据
+     * @Param key key
+     * @Param value value
+     *
+     * @return true/false
+     */
+    public static boolean insertTranslateData(String key, String value){
+        String insertUserSQL = """
+            INSERT INTO translate (key, value)
+            VALUES (?, ?);
+            """;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(insertUserSQL)) {
+
+            pstmt.setString(1, key);
+            pstmt.setString(2, value);
+
+            logger.info("SQL: {}", pstmt.toString());
+            int i = pstmt.executeUpdate();
+            logger.info("result: {}", i);
+        }catch (SQLException e) {
+            logger.error("insert translate data error: " + e.getMessage());
+            logger.error("INSERT INTO translate (key, value) VALUES ({}, );", key, value);
+            return false;
+        }
+
+        return true;
     }
 
     /**

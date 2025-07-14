@@ -1,6 +1,7 @@
 package com.liuyang.tray;
 
 import com.liuyang.tray.rsshub.bilibili.BiliServices;
+import com.liuyang.tray.translate.TranslateFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +30,11 @@ public class CustomTrayIcon extends TrayIcon {
     private final TrayIcon trayIcon;
 
     public static void main(String[] args) {
-        System.setProperty("http.proxyHost", "192.168.1.175");
-        System.setProperty("http.proxyPort", "7897");
-
-        System.setProperty("https.proxyHost", "192.168.1.175");
-        System.setProperty("https.proxyPort", "7897");
+//        System.setProperty("http.proxyHost", "192.168.1.175");
+//        System.setProperty("http.proxyPort", "7897");
+//
+//        System.setProperty("https.proxyHost", "192.168.1.175");
+//        System.setProperty("https.proxyPort", "7897");
 
 
         try {
@@ -83,8 +84,16 @@ public class CustomTrayIcon extends TrayIcon {
             System.exit(0);
         });
 
+        JMenuItem translateItem = new JMenuItem("翻译",new ImageIcon(CustomTrayIcon.class.getResource("/translate_ico_16-16.png")));
+        translateItem.setFont(new Font("翻译",Font.PLAIN,20));
+        translateItem.addActionListener(e -> {
+            logger.info("translateItem");
+            new TranslateFrame().initFrame();
+        });
+
         popupMenu.add(whisperItem);
         popupMenu.add(openItem);
+        popupMenu.add(translateItem);
         popupMenu.addSeparator();
         popupMenu.add(exitItem);
     }

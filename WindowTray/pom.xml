@@ -9,7 +9,10 @@
     <version>1.0</version>
 
     <properties>
+        <!-- 统一指定 JDK 版本为 21 -->
         <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -48,6 +51,7 @@
             <version>1.18.38</version>
         </dependency>
 
+
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -77,24 +81,37 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>com.liuyang.tray.CustomTrayIcon</mainClass>
-                        </manifest>
-                    </archive>
+                    <source>21</source>  <!-- 与 properties 一致 -->
+                    <target>21</target>  <!-- 与 properties 一致 -->
+                    <release>21</release> <!-- 推荐使用 release 替代 source/target -->
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
                 <configuration>
-                    <source>15</source>
-                    <target>15</target>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.liuyang.tray.CustomTrayIcon</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
