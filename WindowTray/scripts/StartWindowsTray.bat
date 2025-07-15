@@ -1,0 +1,1 @@
+start javaw -jar WindowTray-1.0.jar

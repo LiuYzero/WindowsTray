@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -91,11 +93,12 @@ public class TranslateFrame {
 
 
                                 String responseNode = respData.getString("response");
-                                textArea.setFont(new Font("YaHei", Font.PLAIN, 32));
+                                textArea.setFont(new Font("YaHei", Font.PLAIN, 18));
                                 textArea.setText(responseNode+"\r\n");
                                 boolean result = SQLiteUitls.insertTranslateData(input, responseNode);
                                 logger.info("insert result {}", result);
 
+                                save2pg(input,responseNode);
                             } else {
                                 textArea.setText("请求失败，状态码: " + response.code());
                             }
@@ -124,4 +127,41 @@ public class TranslateFrame {
 
 
     }
+
+    public void save2pg(String key,String value){
+        JSONObject data = new JSONObject();
+        data.put("key",key);
+        data.put("value",value);
+        logger.info("save2pg {}",data);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+        RequestBody requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"), JSONObject.toJSONString(data));
+
+        // 创建请求对象
+        Request request = null;
+        try {
+            request = new Request.Builder()
+
+                    .url(new URL("http://192.168.1.103:16680/pg/translate/save"))
+                    .post(requestBody)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            logger.info("repsonse {}",response.body().string());
+        } catch (MalformedURLException e) {
+            logger.error("",e);
+        } catch (IOException e) {
+            logger.error("",e);
+        }
+
+
+    }
+
+
 }
